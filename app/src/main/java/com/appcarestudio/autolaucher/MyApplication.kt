@@ -17,7 +17,16 @@
 package com.appcarestudio.autolaucher
 
 import android.app.Application
+import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application()
+class MyApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        MapKitFactory.setApiKey("5193fa9e-d252-418b-8b7b-19a3dbc2c002")
+    }
+}
+
+

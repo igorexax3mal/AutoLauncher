@@ -19,11 +19,18 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.gradle)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.appcarestudio.autolaucher.feature.items"
     compileSdk = 34
+
+    // Enable room auto-migrations
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 
     defaultConfig {
         minSdk = 21
@@ -48,7 +55,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -61,6 +71,16 @@ dependencies {
 
     // Core Android dependencies
     implementation(libs.androidx.activity.compose)
+
+    //Views
+    implementation(libs.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.recyclerview)
+    kapt(libs.compiler)
+    implementation (libs.androidx.fragment.ktx)
+  //  implementation (libs.glide)
+ //   ksp (libs.glideCompiler)
+ //   implementation (libs.glideAnnotations)
 
     // Arch Components
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -81,6 +101,13 @@ dependencies {
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    //Views
+    implementation(libs.googleMaterial)
+    implementation(libs.androidxCompat)
+    implementation(libs.recyclerview)
+
+    implementation (libs.maps.mobile)
     // Hilt and instrumented tests.
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)
